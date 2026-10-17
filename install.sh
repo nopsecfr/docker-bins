@@ -19,6 +19,11 @@ Architectures: $(dpkg --print-architecture)
 Signed-By: /etc/apt/keyrings/docker.asc
 EOF
 
+cat /etc/os-release | grep VERSION_CODENAME=kali > /dev/null
+if [ $? -eq 0 ];then
+	perl -p -i -e 's/(?<=Suites: ).+/trixie/g' /etc/apt/sources.list.d/docker.sources
+fi
+
 apt update
 apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
