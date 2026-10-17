@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ $# -eq 1 ];then
+	docker exec -i -t $1 /bin/bash || docker exec -i -t $1 /bin/sh
+else
+	docker exec -i -t `docker ps -lq` /bin/bash || docker exec -i -t `docker ps -lq` /bin/bash
+fi

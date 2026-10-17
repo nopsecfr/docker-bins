@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for i in `docker images | awk '{print $1}' | grep -v "^REPOSITORY$"`;do
+	docker untag $i
+	docker rmi $i
+done
+
+for image in `docker images | awk '{print $3 }' | grep -v IMAGE`;do docker rmi $image;done

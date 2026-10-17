@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker_stop_all
+docker rm $(docker ps -a -q)

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+IFS=$'\n'
+for i in $(docker images | grep -ve "^REPOSITORY");do
+	name=`echo $i | awk '{print $1}'`
+	tag=`echo $i | awk '{print $2}'`
+	fname="$name:$tag"
+
+	new="$fname"
+	new=`echo "$new" | sed "s/:/@/g"`
+	new=`echo "$new" | sed "s/\//_/g"`
+	new=`echo "$new" | sed "s/:/@/g"`
+	new="$new.tar"
+
+	echo "new: $new"
+	docker save "$fname" -o "$new"
+done

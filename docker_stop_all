@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Arrêt de tous les containeurs."
+docker stop -t 1 $(docker ps -q) 2>/dev/null
