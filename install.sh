@@ -27,8 +27,8 @@ fi
 apt update
 apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-chmod docker-*
-cp docker-* /usr/local/bin
+chmod docker_*
+cp docker_* /usr/local/bin
 
 echo "If you want to permit a local user to user docker, use this command: usermod -aG docker username"
 
