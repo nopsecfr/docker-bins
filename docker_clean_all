@@ -1,13 +1,16 @@
 #!/bin/bash
 
-docker rm -f $(docker ps -aq) 2>/dev/null
+# Arrêter et supprimer tous les conteneurs (actifs et arrêtés)
+sudo docker rm -f $(docker ps -aq) 2>/dev/null
 
-docker system prune -a --volumes -f
-docker builder prune -a -f
+# Supprimer tous les volumes (données persistantes)
+sudo docker volume rm $(docker volume ls -q) 2>/dev/null
 
-sudo systemctl stop docker
+# Supprimer tous les réseaux non par défaut
+sudo docker network prune -f
 
-sudo rm -rf /var/lib/docker
-sudo rm -rf /var/lib/containerd
+# Nettoyer le système en gardant explicitement les images (-a n'est pas utilisé ici pour les images)
+sudo docker system prune --volumes -f
 
-sudo systemctl start docker
+# Nettoyer le cache de build
+sudo docker builder prune -a -f
